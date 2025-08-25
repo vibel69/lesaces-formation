@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les A.C.E.S. — Académie (Page 1)</title>
+<meta name="theme-color" content="#472c9e">
+<style>
+:root{--ink:#0b1020;--muted:#5b6475;--line:#e5e7eb;--bg:#f7f7ff;--brand:#472c9e;--accent:#fea600;--b1:#6344ba;--b2:#7150c8;--b3:#8d69e5}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+a{color:inherit;text-decoration:none}.btn{background:var(--accent);border:none;color:#111;padding:10px 14px;border-radius:10px;font-weight:700}
+.btn-outline{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:10px}
+.page{max-width:1100px;margin:0 auto;padding:18px}.header{display:flex;align-items:center;gap:12px;padding:12px 0}
+.logo{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;background:#fff}
+.logo svg{width:30px;height:30px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 20px rgba(15,23,42,.05);padding:16px;margin:10px 0}
+.banner{border-radius:12px;border:1px dashed var(--line);padding:16px;background:linear-gradient(135deg,var(--b3),var(--b1));color:#fff}
+.footer{text-align:center;color:#6b7280;padding:24px 0}
+.quiz .opt{display:block;margin:6px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left}
+.quiz .opt.right{border-color:#86efac;background:#f0fdf4}.quiz .opt.wrong{border-color:#fecaca;background:#fff1f2}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tag{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 10px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="logo" aria-label="Logo">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#472c9e"/><path d="M7 13l3 3 7-7" stroke="#fea600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div><b>Les A.C.E.S. — Académie des Animateurs</b><div style="font-size:12px;opacity:.8">Ambiance sportive · pédagogie ludique · sécurité</div></div>
+    <nav class="nav">
+      <a class="btn-outline" href="index.html">Page 1</a>
+      <a class="btn-outline" href="modules-2-3.html">Page 2</a>
+      <a class="btn-outline" href="finale.html">Page 3</a>
+    </nav>
+  </header>
+
+  <section class="card banner">
+    <h1 style="margin:0 0 6px 0">Bienvenue</h1>
+    <p style="margin:0">Parcours : <b>Apprendre → S’entraîner → Évaluer</b>. Version légère sans images, rapide à charger.</p>
+    <div class="tabs" style="margin-top:10px">
+      <span class="tag">Page 1 : Intro, Professionnalisme</span>
+      <span class="tag">Page 2 : Pédagogie, Sécurité</span>
+      <span class="tag">Page 3 : Mini-jeu, Certificat</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Module 0 — Introduction & Valeurs</h2>
+    <ul style="margin-top:8px">
+      <li><b>A.C.E.S.</b> = <b>A</b>ction · <b>C</b>ollaboration · <b>E</b>xcellence · <b>S</b>écurité</li>
+      <li>Rôle de l’animateur : modèle positif, communication claire, respect du cadre.</li>
+      <li>Canal parents : passer par la coordination pour les sujets sensibles.</li>
+    </ul>
+    <div class="quiz" id="m0" style="margin-top:12px">
+      <p><b>Q1.</b> Les 4 valeurs ?</p>
+      <button class="opt" data-a="1">Action, Collaboration, Excellence, Sécurité</button>
+      <button class="opt" data-a="0">Vitesse, Sanction, Autorité, Notoriété</button>
+      <p><b>Q2.</b> Canal officiel avec les parents ?</p>
+      <button class="opt" data-a="0">Animateur ↔ Parent</button>
+      <button class="opt" data-a="1">Coordonnateur ↔ Parent</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Module 1 — Professionnalisme</h2>
+    <ul>
+      <li><b>Ponctualité :</b> arriver 15 min avant, vérifier matériel, avoir un plan B.</li>
+      <li><b>Tenue :</b> maillot A.C.E.S., <i>chaussures fermées</i>, présentation soignée.</li>
+      <li><b>Communication :</b> courte, factuelle, bienveillante; consignes positives.</li>
+    </ul>
+    <div class="quiz" id="m1" style="margin-top:12px">
+      <p><b>Q1.</b> Imprévu matériel ?</p>
+      <button class="opt" data-a="1">Activer le plan B et prévenir le coordonnateur</button>
+      <button class="opt" data-a="0">Commencer en retard</button>
+      <p><b>Q2.</b> Tenue adaptée ?</p>
+      <button class="opt" data-a="0">Tongs</button>
+      <button class="opt" data-a="1">Chaussures fermées, tenue A.C.E.S.</button>
+    </div>
+  </section>
+
+  <section class="footer">© 2025 Les A.C.E.S.</section>
+</div>
+<script>
+(function(){
+  function bindQuiz(id){
+    const box=document.getElementById(id); if(!box) return;
+    box.querySelectorAll('.opt').forEach(btn=>{
+      btn.onclick=()=>{const ok=btn.dataset.a==='1'; btn.classList.add(ok?'right':'wrong'); box.querySelectorAll('.opt').forEach(x=>x.disabled=true);};
+    });
+  }
+  bindQuiz('m0'); bindQuiz('m1');
+})();
+</script>
+</body>
+</html>
