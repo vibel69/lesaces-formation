@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les A.C.E.S. — Académie (Page 3)</title>
+<meta name="theme-color" content="#472c9e">
+<style>
+:root{--ink:#0b1020;--muted:#5b6475;--line:#e5e7eb;--bg:#f7f7ff;--brand:#472c9e;--accent:#fea600;--b1:#6344ba;--b2:#7150c8;--b3:#8d69e5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+a{color:inherit;text-decoration:none}.btn{background:var(--accent);border:none;color:#111;padding:10px 14px;border-radius:10px;font-weight:700}
+.btn-outline{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:10px}
+.page{max-width:1100px;margin:0 auto;padding:18px}.header{display:flex;align-items:center;gap:12px;padding:12px 0}
+.logo{width:44px;height:44px;border:1px solid var(--line);border-radius:12px;display:grid;place-items:center;background:#fff}
+.logo svg{width:30px;height:30px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 20px rgba(15,23,42,.05);padding:16px;margin:10px 0}
+.footer{text-align:center;color:#6b7280;padding:24px 0}
+#field{position:relative;width:100%;height:380px;border:2px dashed var(--line);border-radius:14px;background:repeating-linear-gradient(0deg,#fff,#fff 24px,#f7f8ff 24px,#f7f8ff 48px)}
+.zone{position:absolute;border:2px dashed var(--b2);border-radius:12px}
+.drag{position:absolute;padding:10px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 8px 16px rgba(0,0,0,.06);cursor:grab;user-select:none}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="logo" aria-label="Logo">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#472c9e"/><path d="M6 12h12" stroke="#fea600" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div><b>Les A.C.E.S. — Académie des Animateurs</b><div style="font-size:12px;opacity:.8">Ambiance sportive · pédagogie ludique · sécurité</div></div>
+    <nav class="nav">
+      <a class="btn-outline" href="index.html">Page 1</a>
+      <a class="btn-outline" href="modules-2-3.html">Page 2</a>
+      <a class="btn-outline" href="finale.html">Page 3</a>
+    </nav>
+  </header>
+
+  <section class="card">
+    <h2>Mini-jeu — Prépare ta séance</h2>
+    <p>Place chaque carte dans la bonne zone : <b>Sécurité</b>, <b>Matériel</b>, <b>Jeu</b>.</p>
+    <div id="field">
+      <div id="zone-secu" class="zone" style="left:2%;top:10%;width:30%;height:80%"></div>
+      <div id="zone-matos" class="zone" style="left:35%;top:10%;width:30%;height:80%"></div>
+      <div id="zone-jeu"  class="zone" style="left:68%;top:10%;width:30%;height:80%"></div>
+
+      <div class="drag" data-type="secu" style="left:10px;top:10px">Trousse 1ers soins</div>
+      <div class="drag" data-type="secu" style="left:10px;top:60px">Hydratation</div>
+      <div class="drag" data-type="secu" style="left:10px;top:110px">Chaussures fermées</div>
+
+      <div class="drag" data-type="matos" style="left:10px;top:180px">Cônes</div>
+      <div class="drag" data-type="matos" style="left:10px;top:230px">Chasubles</div>
+      <div class="drag" data-type="matos" style="left:10px;top:280px">Ballons</div>
+
+      <div class="drag" data-type="jeu" style="left:160px;top:10px">Rôles tournants</div>
+      <div class="drag" data-type="jeu" style="left:160px;top:60px">Démo courte</div>
+      <div class="drag" data-type="jeu" style="left:160px;top:110px">Règles positives</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+      <button id="check" class="btn">Valider</button>
+      <span id="fb" style="color:#5b6475"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Certificat</h2>
+    <p>Entre ton nom, puis exporte en PNG ou imprime en PDF.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input id="certName" placeholder="Prénom Nom" style="padding:10px;border:1px solid var(--line);border-radius:10px">
+      <button id="makeCert" class="btn">Générer (PNG)</button>
+      <button id="printCert" class="btn-outline">Imprimer PDF</button>
+    </div>
+    <div id="certWrap" style="display:none;margin-top:12px">
+      <canvas id="cert" width="1400" height="900"></canvas>
+      <div style="margin-top:8px"><a id="dlCert" class="btn" download="certificat_aces.png">Télécharger l’image</a></div>
+    </div>
+  </section>
+
+  <section class="footer">© 2025 Les A.C.E.S.</section>
+</div>
+
+<script>
+// Drag & drop minimal
+(function(){
+  document.querySelectorAll('.drag').forEach(function(el){
+    let dragging=false, ox=0, oy=0;
+    const down=e=>{dragging=true;el.style.cursor='grabbing';const r=el.getBoundingClientRect();const p=e.touches?e.touches[0]:e;ox=p.clientX-r.left;oy=p.clientY-r.top;};
+    const move=e=>{if(!dragging)return;const fr=document.getElementById('field').getBoundingClientRect();const p=e.touches?e.touches[0]:e;const x=p.clientX-fr.left-ox;const y=p.clientY-fr.top-oy;el.style.left=x+'px';el.style.top=y+'px';};
+    const up=()=>{dragging=false;el.style.cursor='grab';};
+    el.addEventListener('mousedown',down);window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+    el.addEventListener('touchstart',down,{passive:false});window.addEventListener('touchmove',move,{passive:false});window.addEventListener('touchend',up,{passive:false});
+  });
+  document.getElementById('check').onclick=function(){
+    const zones={secu:zone('zone-secu'),matos:zone('zone-matos'),jeu:zone('zone-jeu')};
+    function zone(id){return document.getElementById(id).getBoundingClientRect();}
+    function inside(el,zr){const r=el.getBoundingClientRect();return r.left>zr.left&&r.right<zr.right&&r.top>zr.top&&r.bottom<zr.bottom;}
+    let ok=0,total=0;document.querySelectorAll('.drag').forEach(el=>{total++; if(inside(el,zones[el.dataset.type])) ok++;});
+    document.getElementById('fb').textContent = (ok===total)?'✅ Parfait !':(ok+'/'+total+' bien placés — ajuste encore.');
+  };
+})();
+
+// Certificat
+document.getElementById('makeCert').onclick=function(){
+  const name=(document.getElementById('certName').value||'').trim(); if(!name){alert('Entre ton nom.');return;}
+  const c=document.getElementById('cert');const ctx=c.getContext('2d');
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,c.width,c.height);
+  ctx.strokeStyle='#e2e8f0';ctx.lineWidth=8;ctx.strokeRect(40,40,c.width-80,c.height-80);
+  const g=ctx.createLinearGradient(40,40,c.width-40,140);g.addColorStop(0,'#8d69e5');g.addColorStop(1,'#6344ba');ctx.fillStyle=g;ctx.fillRect(40,40,c.width-80,120);
+  ctx.fillStyle='#fff';ctx.font='bold 48px system-ui,sans-serif';ctx.fillText('Les A.C.E.S. — Certificat de réussite',60,115);
+  ctx.fillStyle='#0f172a';ctx.font='bold 60px system-ui,sans-serif';ctx.fillText(name,60,260);
+  ctx.font='28px system-ui,sans-serif';ctx.fillText('a complété la formation interne des animateurs A.C.E.S.',60,320);
+  ctx.fillText('avec succès (validation des modules).',60,360);
+  ctx.font='22px system-ui,sans-serif';ctx.fillStyle='#64748b';ctx.fillText('Date : '+new Date().toLocaleDateString(),60,420);
+  ctx.fillStyle='#0f172a';ctx.fillRect(60,700,320,2);ctx.fillRect(860,700,320,2);
+  ctx.font='20px system-ui,sans-serif';ctx.fillText('Signature — Coordination A.C.E.S.',60,730);ctx.fillText('Signature — Direction',860,730);
+  document.getElementById('certWrap').style.display='block';
+  document.getElementById('dlCert').href=c.toDataURL('image/png');
+};
+document.getElementById('printCert').onclick=()=>window.print();
+</script>
+</body>
+</html>
