@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les A.C.E.S. — Académie (Page 2)</title>
+<meta name="theme-color" content="#472c9e">
+<style>
+:root{--ink:#0b1020;--muted:#5b6475;--line:#e5e7eb;--bg:#f7f7ff;--brand:#472c9e;--accent:#fea600;--b1:#6344ba;--b2:#7150c8;--b3:#8d69e5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+a{color:inherit;text-decoration:none}.btn-outline{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:10px}
+.page{max-width:1100px;margin:0 auto;padding:18px}.header{display:flex;align-items:center;gap:12px;padding:12px 0}
+.logo{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);display:grid;place-items:center;background:#fff}
+.logo svg{width:30px;height:30px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 20px rgba(15,23,42,.05);padding:16px;margin:10px 0}
+.footer{text-align:center;color:#6b7280;padding:24px 0}
+.quiz .opt{display:block;margin:6px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left}
+.quiz .opt.right{border-color:#86efac;background:#f0fdf4}.quiz .opt.wrong{border-color:#fecaca;background:#fff1f2}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="logo" aria-label="Logo">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" fill="#472c9e"/><path d="M7 12h10M12 7v10" stroke="#fea600" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <div><b>Les A.C.E.S. — Académie des Animateurs</b><div style="font-size:12px;opacity:.8">Ambiance sportive · pédagogie ludique · sécurité</div></div>
+    <nav class="nav">
+      <a class="btn-outline" href="index.html">Page 1</a>
+      <a class="btn-outline" href="modules-2-3.html">Page 2</a>
+      <a class="btn-outline" href="finale.html">Page 3</a>
+    </nav>
+  </header>
+
+  <section class="card">
+    <h2>Module 2 — Enfant & pédagogie ludique</h2>
+    <ul>
+      <li><b>5–7 ans :</b> règles simples, boucles courtes, feedbacks positifs.</li>
+      <li><b>8–10 ans :</b> défis progressifs, autonomie guidée, coopération.</li>
+      <li><b>11–12 ans :</b> rôles (capitaine, arbitre), co-construction des règles.</li>
+    </ul>
+    <div class="quiz" id="m2" style="margin-top:12px">
+      <p><b>Q1.</b> Pour 5–7 ans, privilégier…</p>
+      <button class="opt" data-a="1">Des règles simples</button>
+      <button class="opt" data-a="0">Un système complexe</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Module 3 — Sécurité & responsabilités</h2>
+    <ul>
+      <li><b>Positionnement :</b> voir tout, dos au mur si possible, circuler, anticiper.</li>
+      <li><b>Urgence :</b> sécuriser – rassurer – prévenir – rapport factuel daté.</li>
+      <li><b>Responsabilités :</b> respecter procédures, signaler incidents/accidents.</li>
+    </ul>
+    <div class="quiz" id="m3" style="margin-top:12px">
+      <p><b>Q1.</b> Un rapport d’incident doit contenir…</p>
+      <button class="opt" data-a="1">Des faits datés et concis</button>
+      <button class="opt" data-a="0">Des opinions et impressions</button>
+    </div>
+  </section>
+
+  <section class="footer">© 2025 Les A.C.E.S.</section>
+</div>
+<script>
+(function(){
+  function bindQuiz(id){
+    const box=document.getElementById(id); if(!box) return;
+    box.querySelectorAll('.opt').forEach(btn=>{
+      btn.onclick=()=>{const ok=btn.dataset.a==='1'; btn.classList.add(ok?'right':'wrong'); box.querySelectorAll('.opt').forEach(x=>x.disabled=true);};
+    });
+  }
+  bindQuiz('m2'); bindQuiz('m3');
+})();
+</script>
+</body>
+</html>
